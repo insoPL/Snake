@@ -26,7 +26,18 @@ using namespace std;
     bool koniec=false;
 
 int main(){
+
     initscr();
+
+    if(has_colors() == FALSE)
+	{	endwin();
+		printf("Your terminal does not support color\n");
+		exit(1);
+	}
+	start_color();
+	init_pair(1, COLOR_BLACK,COLOR_GREEN);
+
+
     curs_set(FALSE);
     raw();
     noecho();
@@ -66,7 +77,9 @@ int wynik=0;
                     koniec=gracz[0].go();
                     rigs(1,gracz);
 
+
                     }while(koniec&&klaw!=9);
+
                         odn(1);
                         wynik=0;
                         if (!koniec){

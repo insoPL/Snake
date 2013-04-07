@@ -23,6 +23,7 @@ public:
 
 
         bool znj(const std::vector<ve>& gr){
+            attroff(COLOR_PAIR(1));
         mvaddch(y,x,' ');
         bool czy=true;
          while(czy){
@@ -33,7 +34,10 @@ public:
                 if(czy=gr.at(xx).x==x && gr.at(xx).y==y) break;
             }
         }
+
         mvaddch(y,x,'O');
+
+        refresh();
         }
 
 
