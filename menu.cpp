@@ -2,7 +2,7 @@
 
 using namespace std;
 
-
+extern bool smp_mod;
 
    void odn(bool pel=0){
     clear();
@@ -10,7 +10,7 @@ using namespace std;
     if(pel)sze=80;
     for(int y=0; y<25; y++){
             for(int x=0; x<sze; x++){
-                    if(x==sze-1||x==0||y==0||y==24) mvaddch(y,x,'#');
+                    if(x==sze-1||x==0||y==0||y==24){ attron(COLOR_PAIR(7)); mvaddch(y,x,'#'); attron(COLOR_PAIR(8));}
             }}
             refresh();
             }
@@ -36,8 +36,10 @@ using namespace std;
                                 " ###  #   # #    # #   # #####"};
             for(int x=0;x<8;x++){
                 for(int y=0;y<30;y++){
-                    mvaddch(2+x,25+y,napis[x][y]);
+                        if(napis[x][y]==' '){attron(COLOR_PAIR(8)); mvaddch(2+x,25+y,napis[x][y]);}
+                        else if(napis[x][y]=='#'){attron(COLOR_PAIR(7)); mvaddch(2+x,25+y,napis[x][y]);}
                 }
+                    attron(COLOR_PAIR(8));
             }}
 
             int najw=0;//najwiekszy z mozl sluzy za punkt odniesienia przy tworzenia nawiasow >tekst<
@@ -114,7 +116,24 @@ using namespace std;
 
 
     void rigs(int players,snake* sn,bool cz=false){
-        if(cz){
+        if(smp_mod){
+                int line=0;
+            for(int x=1;x-1<players;x++){
+
+            int i = 42;
+
+                string tmp;
+                sprintf((char*)tmp.c_str(), "%d", x);
+
+            string pl="Score :";
+
+
+            for(int y=0;y<pl.length();y++){
+                    mvaddch(1+line*2,66+y,pl.at(y));
+                }
+        line++;
+        }}
+        else if(cz){
             int line=0;
             for(int x=1;x-1<players;x++){
 

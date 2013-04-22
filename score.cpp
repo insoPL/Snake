@@ -9,12 +9,13 @@ using namespace std;
 
     int menu (string * mozl, int wlk, bool spec=false);
 
+    int which (string str[], int point);
 
     int ins (string str[], string strink, int point);
 
     int getPoints(string str);
 
-    int score(){
+    bool score(){
 
     string scorsy[obsz];
     fstream plik;
@@ -38,7 +39,8 @@ using namespace std;
     plik.close();
 
     while(menu(scorsy,obsz)!=obsz);
-}
+    return true;
+    }
 
 int addscores(string nick, int point){
     int zwr;
@@ -81,6 +83,33 @@ int addscores(string nick, int point){
     return zwr;
 }
 
+int getscores(string nick, int point){
+    int zwr;
+
+    string scorsy[obsz];
+    ifstream plik;
+     int x=0;
+    plik.open( "highscore.dat", ios::in );
+    if( plik.good() )
+    {
+        x=0;
+        while( x!=obsz-2){//dopóki plik sieskonczy lub do 19 czyli koniec hiskori
+            string napis;
+            getline( plik, napis );
+            if(plik.eof()) break;
+            scorsy[x++]=napis;
+        }
+        zwr=which(scorsy, point);
+
+    } else return 500;
+
+
+    plik.close();
+
+
+    return zwr;
+}
+
 int getPoints(string str){
     unsigned found = str.find_last_of("-");
     stringstream konwersja(str.substr(found+1));
@@ -104,6 +133,16 @@ int ins (string str[], string strink,int point){
             string he=st;
             st=str[y];
             str[y]=he;
+        }
+    }
+    return zwr+1;
+}
+int which (string str[], int point){
+    int zwr=50;
+    string st;
+    for(int y=0;y<obsz-2;y++){
+        if(getPoints(str[y])<=point){
+                return y+1;
         }
     }
     return zwr+1;

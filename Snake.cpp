@@ -1,5 +1,5 @@
 #include "Snake.hpp"
-
+extern owoc owo;
  bool snake::go(){
 
         int x,y;
@@ -18,7 +18,7 @@
         y=tab.front().y;
         if(jest(x+1,y))  { attroff(COLOR_PAIR(1)); return false; }
         tab.insert(tab.begin(),ve(y,x+1));
-        if(owo->x==x+1&&owo->y==y){owo->znj(tab); dodanie=dodanie+5; points+=10;}
+        if(owo.x==x+1&&owo.y==y){owo.znj(tab); dodanie=dodanie+5; points+=10;}
             attron(COLOR_PAIR(1));
         mvaddch(y,x+1,'X');
         }
@@ -28,7 +28,7 @@
         y=tab.front().y;
         if(jest(x-1,y)) { attroff(COLOR_PAIR(1));return false;}
         tab.insert(tab.begin(),ve(y,x-1));
-        if(owo->x==x-1&&owo->y==y){owo->znj(tab); dodanie=dodanie+5; points+=10;}
+        if(owo.x==x-1&&owo.y==y){owo.znj(tab); dodanie=dodanie+5; points+=10;}
            attron(COLOR_PAIR(1));
         mvaddch(y,x-1,'X');
         }
@@ -37,7 +37,7 @@
         y=tab.front().y;
         if(jest(x,y-1)){  attroff(COLOR_PAIR(1)); return false;}
         tab.insert(tab.begin(),ve(y-1,x));
-        if(owo->x==x&&owo->y==y-1){owo->znj(tab); dodanie=dodanie+5; points+=10;}
+        if(owo.x==x&&owo.y==y-1){owo.znj(tab); dodanie=dodanie+5; points+=10;}
            attron(COLOR_PAIR(1));
         mvaddch(y-1,x,'X');
         }
@@ -46,7 +46,7 @@
         y=tab.front().y;
         if(jest(x,y+1)) { attroff(COLOR_PAIR(1)); return false;}
         tab.insert(tab.begin(),ve(y+1,x));
-        if(owo->x==x&&owo->y==y+1){owo->znj(tab); dodanie=dodanie+5; points+=10;}
+        if(owo.x==x&&owo.y==y+1){owo.znj(tab); dodanie=dodanie+5; points+=10;}
            attron(COLOR_PAIR(1));
         mvaddch(y+1,x,'X');
         }
@@ -58,7 +58,8 @@
 
     }
 
-    snake::snake(char zn):znak(3){
+    snake::snake(std::string nam):znak(3){
+        name=nam;
         points=0;
         ile++;
         dodanie=0;
